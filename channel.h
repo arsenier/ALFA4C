@@ -15,6 +15,29 @@ public:
 };
 
 template <typename T>
+class ChannelLast : public Channel<T>
+{
+public:
+    ChannelLast()
+    {
+        this->inState = 0;
+    }
+
+    void drive(T in) override
+    {
+        inState = in;
+    }
+    void update() override
+    {
+        this->out = inState;
+        inState = 0;
+    }
+
+private:
+    T inState;
+};
+
+template <typename T>
 class ChannelAverage : public Channel<T>
 {
 public:
